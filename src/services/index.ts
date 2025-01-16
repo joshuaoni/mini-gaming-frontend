@@ -64,20 +64,20 @@ export const fetchDashboardData = async (): Promise<DashboardData> => {
     headers: { Authorization: `Bearer ${token}` },
   });
 
-  if (!usersResponse.ok) {
-    throw new Error('Failed to fetch users');
-  }
   const usersData = await usersResponse.json();
+  if (!usersResponse.ok) {
+    throw new Error(usersData.error || 'Failed to fetch users');
+  }
 
   const analyticsResponse = await fetch('https://mini-gaming-backend.onrender.com/api/admin/analytics', {
     method: 'GET',
     headers: { Authorization: `Bearer ${token}` },
   });
 
-  if (!analyticsResponse.ok) {
-    throw new Error('Failed to fetch analytics');
-  }
   const analyticsData = await analyticsResponse.json();
+  if (!analyticsResponse.ok) {
+    throw new Error(analyticsData.error || 'Failed to fetch analytics');
+  }
 
   return {
     users: usersData,
