@@ -7,6 +7,7 @@ import Loader from '@/components/Loader';
 import NavBar from '@/components/NavBar';
 import { TransProps } from '@/types';
 import { fetchTransactions } from '@/services';
+import Image from 'next/image';
 
 export default function GamePage() {
     const [transactions, setTransactions] = useState<[TransProps] | []>([]);
@@ -91,8 +92,17 @@ export default function GamePage() {
                                 : 'text-red-500'
                             }`}
                         >
-                            {transaction.type === 'withdrawal' ? '-' : transaction.amount > 0 ? '+' : '-'}$
-                            {Math.abs(transaction.amount)}
+                            <span className='flex items-center'>
+                                {transaction.type === 'withdrawal' ? '-' : transaction.amount > 0 ? '+' : '-'}
+                                <Image
+                                    src="/btc.png"
+                                    alt="Bitcoin Icon"
+                                    width={14}
+                                    height={14}
+                                    className="ml-[2px] mr-[2px]"
+                                />
+                                {Math.abs(transaction.amount)}
+                            </span>
                         </p>
                         </li>
                     ))}
