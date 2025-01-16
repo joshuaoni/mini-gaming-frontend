@@ -35,7 +35,7 @@ export default function WalletBalance({
 
     return (
         <div
-            className="absolute top-2 right-3 flex items-center bg-gray-100 border rounded-full px-4 py-2 text-black shadow cursor-pointer"
+            className="absolute top-4 right-3 flex items-center bg-gray-100 border rounded-full px-4 py-2 text-black shadow cursor-pointer"
             onClick={() => router.push('/wallet')}
         >
         Wallet:{' '}
