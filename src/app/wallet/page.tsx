@@ -87,79 +87,79 @@ export default function WalletPage() {
       
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 px-4 sm:px-0">
             <NavBar />
-
-            <div className="w-96 max-w-4xl bg-white shadow-lg rounded-lg p-8 mt-4">
+        
+            <div className="w-full sm:w-96 max-w-full sm:max-w-4xl bg-white shadow-lg rounded-lg p-6 sm:p-8 mt-4">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6">Wallet</h2>
-
-                <span className="mb-6 flex items-center text-gray-700">
+      
+                <span className="mb-6 flex flex-wrap items-center text-gray-700 text-sm sm:text-base">
                     <span>Your current balance:</span>
                     {loading ? (
-                    <Loader
+                        <Loader
                         height="20px"
                         width="20px"
                         border="3px"
                         marginLeft="20px"
                         marginRight="0px"
-                    />
-                    ) : (
-                    <span className="flex items-center ml-2">
-                        <Image
-                            src="/btc.png"
-                            alt="Bitcoin Icon"
-                            width={18}
-                            height={18}
-                            className="ml-2 mr-[2px] pb-[2px]"
                         />
-                        <span className="text-black-600 font-medium">{balance}</span>
-                    </span>
+                    ) : (
+                        <span className="flex items-center ml-2">
+                            <Image
+                                src="/btc.png"
+                                alt="Bitcoin Icon"
+                                width={18}
+                                height={18}
+                                className="ml-2 mr-[2px] pb-[2px]"
+                            />
+                            <span className="text-black-600 font-medium">{balance}</span>
+                        </span>
                     )}
                 </span>
-
-            <div className="mb-6">
-                <label className="block text-gray-700 font-medium mb-2">
-                Deposit Amount:
-                </label>
-                <input
-                    type="number"
-                    value={depositAmount === 0 ? '' : depositAmount} 
-                    onChange={(e) => setDepositAmount(Number(e.target.value) || 0)}
-                    className="w-full p-3 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter amount"
-                />
-                <button
-                    onClick={handleDeposit}
-                    className="mt-4 w-full bg-green-500 text-white font-semibold py-3 rounded-lg hover:bg-green-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
-                    disabled={loadingDeposit}
-                >
-                {loadingDeposit ? 'Loading...' : 'Deposit'}
-                </button>
-            </div>
-
-            <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                Withdraw Amount:
-                </label>
-                <input
-                    type="number"
-                    value={withdrawAmount === 0 ? '' : withdrawAmount}
-                    onChange={(e) => setWithdrawAmount(Number(e.target.value) || 0)}
-                    className="w-full p-3 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter amount"
-                />
-
-                {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
-
-                <button
-                    onClick={handleWithdraw}
-                    className="mt-4 w-full bg-red-500 text-white font-semibold py-3 rounded-lg hover:bg-red-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
-                    disabled={loadingWithdrawal}
-                >
-                {loadingWithdrawal ? 'Loading...' : 'Withdraw'}
-                </button>
-            </div>
+      
+                <div className="mb-6">
+                    <label className="block text-gray-700 font-medium mb-2">
+                        Deposit Amount:
+                    </label>
+                    <input
+                        type="number"
+                        value={depositAmount === 0 ? '' : depositAmount}
+                        onChange={(e) => setDepositAmount(Number(e.target.value) || 0)}
+                        className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter amount"
+                    />
+                    <button
+                        onClick={handleDeposit}
+                        className="mt-4 w-full bg-green-500 text-white font-semibold py-2 sm:py-3 rounded-lg hover:bg-green-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+                        disabled={loadingDeposit}
+                    >
+                        {loadingDeposit ? 'Loading...' : 'Deposit'}
+                    </button>
+                </div>
+      
+                <div>
+                    <label className="block text-gray-700 font-medium mb-2">
+                        Withdraw Amount:
+                    </label>
+                    <input
+                        type="number"
+                        value={withdrawAmount === 0 ? '' : withdrawAmount}
+                        onChange={(e) => setWithdrawAmount(Number(e.target.value) || 0)}
+                        className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter amount"
+                    />
+      
+                    {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
+        
+                    <button
+                        onClick={handleWithdraw}
+                        className="mt-4 w-full bg-red-500 text-white font-semibold py-2 sm:py-3 rounded-lg hover:bg-red-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+                        disabled={loadingWithdrawal}
+                    >
+                        {loadingWithdrawal ? 'Loading...' : 'Withdraw'}
+                    </button>
+                </div>
             </div>
         </div>
-    );
+    );      
 }
