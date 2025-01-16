@@ -1,5 +1,5 @@
+import { handleChangeRole, handleDeleteUser } from '@/services';
 import { AdminModalProps, User } from '@/types';
-import { getCookie } from '@/utils/cookie';
 import {  useState } from 'react';
 
 export default function AdminModal({
@@ -13,58 +13,16 @@ export default function AdminModal({
 ) {
     const [processing, setProcessing] = useState<boolean>(false);
 
-    const handleDeleteUser = async (id: string) => {
-        const token = getCookie('token');
+    const handleDelete = async (id: string) => {
         setProcessing(true);
-
-        try {
-            const response = await fetch(`http://localhost:8080/api/admin/${id}`, {
-                method: 'DELETE',
-                headers: { Authorization: `Bearer ${token}` },
-            });
-
-            if (!response.ok) throw new Error('Failed to delete user');
-
-                setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
-                setModalVisible(false);
-                setProcessing(false);
-        } catch (error) {
-            console.error('Error:', error);
-            setProcessing(false);
-        }
+        await handleDeleteUser(id, setUsers, setModalVisible);
+        setProcessing(false);
     };
 
-    const handleChangeRole = async (selectedUser: User) => {
-        const token = getCookie('token');
+    const handleRoleChange = async (user: User) => {
         setProcessing(true);
-
-        try {
-            const response = await fetch(`http://localhost:8080/api/admin/role`, {
-                method: 'PATCH',
-                headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify({
-                userId: selectedUser.id,
-                isAdmin: !selectedUser.isAdmin,
-                }),
-            });
-
-            if (!response.ok) throw new Error('Failed to change user role');
-            setUsers((prevUsers) =>
-                prevUsers.map((user) =>
-                user.id === selectedUser.id
-                    ? { ...user, isAdmin: !user.isAdmin }
-                    : user,
-                ),
-            );
-            setModalVisible(false);
-            setProcessing(false);
-        } catch (error) {
-            console.error('Error:', error);
-            setProcessing(false);
-        }
+        await handleChangeRole(user, setUsers, setModalVisible);
+        setProcessing(false);
     };
 
     return (
@@ -98,8 +56,8 @@ export default function AdminModal({
                         <button
                         onClick={() =>
                             actionType === 'delete'
-                            ? handleDeleteUser(selectedUser.id)
-                            : handleChangeRole(selectedUser)
+                            ? handleDelete(selectedUser.id)
+                            : handleRoleChange(selectedUser)
                         }
                         disabled={processing}
                         className={`px-4 py-2 rounded text-white transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed ${

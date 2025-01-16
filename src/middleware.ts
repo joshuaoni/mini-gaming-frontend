@@ -41,7 +41,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/auth/login', request.url));
   }
 
-  return fetch('http://localhost:8080/api/users/validate', {
+  return fetch('https://mini-gaming-backend.onrender.com/api/users/validate', {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}` },
   })
